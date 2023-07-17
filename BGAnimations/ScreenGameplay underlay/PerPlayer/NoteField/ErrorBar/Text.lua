@@ -18,6 +18,8 @@ for i = 1, NumJudgmentsAvailable() do
     end
 end
 
+local elcolors = {color("#4040ff"),color("#ff4040")} -- blue/red
+
 local af = Def.ActorFrame{
     OnCommand = function(self)
         self:xy(GetNotefieldX(player), layout.y)
@@ -26,7 +28,7 @@ local af = Def.ActorFrame{
     LoadFont("Wendy/_wendy small")..{
         Text = "",
         InitCommand = function(self)
-            self:zoom(0.25):shadowlength(1)
+            self:zoom(0.4):shadowlength(1)
         end,
         JudgmentMessageCommand = function(self, params)
             if params.Player ~= player then return end
@@ -38,8 +40,8 @@ local af = Def.ActorFrame{
                     self:finishtweening()
 
                     self:diffusealpha(1)
-                        :settext(params.Early and "EARLY" or "LATE")
-                        :diffuse(color("#ffffff"))
+                        :settext(params.Early and "FAST" or "SLOW")
+                        :diffuse(elcolors[params.Early and 1 or 2])
                         :x((params.Early and -1 or 1) * 40)
                         :sleep(0.5)
                         :diffusealpha(0)
